@@ -1,78 +1,41 @@
 {
+  "$schema": "https://schemas.anthropic.com/dxt/manifest-v1.json",
   "dxt_version": "0.1",
   "name": "n8n-mcp",
   "display_name": "n8n MCP Server",
-  "version": "2.7.13",
-  "description": "Model Context Protocol server for AI assistants to interact with n8n workflow automation. Provides comprehensive access to 528+ n8n nodes with 99% property coverage, node documentation, and workflow management capabilities.",
+  "description": "Model Context Protocol server providing AI assistants with comprehensive access to n8n node documentation, properties, and operations. Supports 528 n8n nodes with 99% property coverage and 90% documentation coverage.",
+  "version": "1.0.0",
   "author": {
-    "name": "Romuald Czlonkowski @ www.aiadvisors.pl/en"
+    "name": "czlonkowski",
+    "url": "https://github.com/czlonkowski"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/czlonkowski/n8n-mcp"
-  },
-  "homepage": "https://github.com/czlonkowski/n8n-mcp",
   "server": {
     "type": "node",
+    "entry_point": "server.js",
     "mcp_config": {
       "command": "npx",
-      "args": [
-        "-y",
-        "n8n-mcp@latest"
-      ],
+      "args": ["n8n-mcp"],
       "env": {
-        "N8N_BASE_URL": "${user_config.N8N_BASE_URL}",
-        "N8N_API_KEY": "${user_config.N8N_API_KEY}",
-        "N8N_MCP_SERVER_MODE": "${user_config.N8N_MCP_SERVER_MODE}",
-        "N8N_MCP_SERVER_PORT": "${user_config.N8N_MCP_SERVER_PORT}"
+        "MCP_MODE": "stdio",
+        "LOG_LEVEL": "error",
+        "N8N_API_URL": "{{n8n_api_url}}",
+        "N8N_API_KEY": "{{n8n_api_key}}"
       }
     }
   },
-  "keywords": [
-    "n8n",
-    "mcp",
-    "model-context-protocol",
-    "workflow",
-    "automation",
-    "claude",
-    "ai",
-    "typescript",
-    "Dev Tools",
-    "server"
-  ],
-  "license": "MIT",
   "user_config": {
-    "N8N_BASE_URL": {
+    "n8n_api_url": {
+      "title": "n8n API URL",
+      "description": "The URL of your n8n instance (optional - for workflow management)",
       "type": "string",
-      "description": "Base URL for n8n instance (optional)",
-      "sensitive": false,
-      "title": "N8N_BASE_URL",
-      "required": false,
       "default": ""
     },
-    "N8N_API_KEY": {
+    "n8n_api_key": {
+      "title": "n8n API Key",
+      "description": "Your n8n API key for authentication (optional)",
       "type": "string",
-      "description": "API key for n8n instance (optional)",
-      "sensitive": true,
-      "title": "N8N_API_KEY",
-      "required": false,
-      "default": ""
-    },
-    "N8N_MCP_SERVER_MODE": {
-      "type": "string",
-      "description": "Server mode (stdio or http)",
-      "sensitive": false,
-      "title": "N8N_MCP_SERVER_MODE",
-      "required": false,
-      "default": "stdio"
-    },
-    "N8N_MCP_SERVER_PORT": {
-      "type": "number",
-      "description": "Server port for HTTP mode",
-      "sensitive": false,
-      "title": "N8N_MCP_SERVER_PORT",
-      "required": false,
-      "default": 3000
+      "default": "",
+      "sensitive": true
     }
   }
 }
